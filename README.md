@@ -29,12 +29,12 @@ A lightweight, easy-to-use VPN application built with Flutter, offering secure c
 **Actual app looks even better! 😃**
 
 <kbd>
-  <img src="https://github.com/HarshAndroid/FreeVPN-App-Flutter/blob/master/screenshots/ONE.png" width=30% height=30%/>
-  <img src="https://github.com/HarshAndroid/FreeVPN-App-Flutter/blob/master/screenshots/TWO.png" width=30% height=30%/>
-  <img src="https://github.com/HarshAndroid/FreeVPN-App-Flutter/blob/master/screenshots/THREE.png" width=30% height=30%/>
-  <img src="https://github.com/HarshAndroid/FreeVPN-App-Flutter/blob/master/screenshots/FOUR.png" width=30% height=30%/>
-  <img src="https://github.com/HarshAndroid/FreeVPN-App-Flutter/blob/master/screenshots/FIVE.png" width=30% height=30%/>
-  <img src="https://github.com/HarshAndroid/FreeVPN-App-Flutter/blob/master/screenshots/SIX.png" width=30% height=30%/>
+  <img src="https://raw.githubusercontent.com/MuzammilAshhad/Free-OpenVPN/main/screenshots/ONE.png" width="30%" />
+  <img src="https://raw.githubusercontent.com/MuzammilAshhad/Free-OpenVPN/main/screenshots/TWO.png" width="30%" />
+  <img src="https://raw.githubusercontent.com/MuzammilAshhad/Free-OpenVPN/main/screenshots/THREE.png" width="30%" />
+  <img src="https://raw.githubusercontent.com/MuzammilAshhad/Free-OpenVPN/main/screenshots/FOUR.png" width="30%" />
+  <img src="https://raw.githubusercontent.com/MuzammilAshhad/Free-OpenVPN/main/screenshots/FIVE.png" width="30%" />
+  <img src="https://raw.githubusercontent.com/MuzammilAshhad/Free-OpenVPN/main/screenshots/SIX.png" width="30%" />
 </kbd>
 
 ---
