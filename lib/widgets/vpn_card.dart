@@ -1,6 +1,4 @@
 import 'dart:math';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,32 +17,35 @@ class VpnCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final controller = Get.find<HomeController>();
 
-    return Card(
-        elevation: 5,
+    return Obx(
+          () => Card(
+        elevation: 1,
         margin: EdgeInsets.symmetric(vertical: mq.height * .01),
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         child: InkWell(
-          onTap: () {
-            controller.vpn.value = vpn;
+          onTap: () async {
+            controller.vpn.value = vpn;               // Update selected VPN
             Pref.vpn = vpn;
-            Get.back();
 
-            // MyDialogs.success(msg: 'Connecting VPN Location...');
+            // Show green tick for 1 sec
+            await Future.delayed(Duration(milliseconds: 300));
 
+            // Now connect VPN
             if (controller.vpnState.value == VpnEngine.vpnConnected) {
               VpnEngine.stopVpn();
-              Future.delayed(
-                  Duration(seconds: 2), () => controller.connectToVpn());
+              await Future.delayed(Duration(seconds: 2));
+              controller.connectToVpn();
             } else {
               controller.connectToVpn();
             }
+
+            Get.back();  // Close location screen
           },
           borderRadius: BorderRadius.circular(15),
           child: ListTile(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15)),
 
-            //flag
+            // FLAG
             leading: Container(
               padding: EdgeInsets.all(.5),
               decoration: BoxDecoration(
@@ -53,42 +54,65 @@ class VpnCard extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(5),
                 child: Image.asset(
-                    'assets/flags/${vpn.countryShort.toLowerCase()}.png',
-                    height: 40,
-                    width: mq.width * .15,
-                    fit: BoxFit.cover),
+                  'assets/flags/${vpn.countryShort.toLowerCase()}.png',
+                  height: 40,
+                  width: mq.width * .15,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
 
-            //title
             title: Text(vpn.countryLong),
 
-            //subtitle
             subtitle: Row(
               children: [
                 Icon(Icons.speed_rounded, color: Colors.blue, size: 20),
                 SizedBox(width: 4),
-                Text(_formatBytes(vpn.speed, 1), style: TextStyle(fontSize: 13))
+                Text(
+                  _formatBytes(vpn.speed, 1),
+                  style: TextStyle(fontSize: 13),
+                ),
               ],
             ),
 
-            //trailing
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(vpn.numVpnSessions.toString(),
-                    style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: FontWeight.w500,
-                        color: Theme.of(context).lightText)),
-                SizedBox(width: 4),
-                Icon(CupertinoIcons.person_3, color: Colors.blue),
-              ],
-            ),
+            // TRAILING RADIO INDICATOR
+            trailing: _buildSelector(controller),
           ),
-        ));
+        ),
+      ),
+    );
   }
 
+  /// Circle Icon Logic (Perfect)
+  Widget _buildSelector(HomeController controller) {
+    final bool isSelected = controller.vpn.value == vpn;
+
+    return Container(
+      width: 26,
+      height: 26,
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        border: Border.all(
+          color: Colors.grey,
+          width: 2,
+        ),
+        color: isSelected ? Colors.green : Colors.transparent,
+      ),
+      child: isSelected
+          ? Icon(
+        Icons.check,
+        size: 16,
+        color: Pref.isDarkMode ? Colors.black : Colors.white,
+      )
+          : Icon(
+        Icons.circle,
+        size: 20,
+        color: Colors.transparent,
+      ),
+    );
+  }
+
+  /// SPEED FORMATTER
   String _formatBytes(int bytes, int decimals) {
     if (bytes <= 0) return "0 B";
     const suffixes = ['Bps', "Kbps", "Mbps", "Gbps", "Tbps"];

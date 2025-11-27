@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../apis/apis.dart';
+import '../helpers/pref.dart';
 import '../main.dart';
 import '../models/ip_details.dart';
 import '../models/network_data.dart';
@@ -17,17 +18,27 @@ class NetworkTestScreen extends StatelessWidget {
     APIs.getIPDetails(ipData: ipData);
 
     return Scaffold(
-      appBar: AppBar(title: Text('Network Test Screen')),
+      backgroundColor: Pref.isDarkMode ? Colors.black : Colors.white,
+      appBar: AppBar(
+        backgroundColor: Pref.isDarkMode ? Colors.black : Colors.white,
+          title: Text('Network Test Screen',style: TextStyle(color: Pref.isDarkMode ? Colors.white : Colors.black),),
+          leading: IconButton(
+            icon: Icon(CupertinoIcons.back,size: 35,),
+            onPressed: Navigator.of(context).pop,
+          ),
+          iconTheme: IconThemeData(color: Pref.isDarkMode ? Colors.white : Colors.black),
+      ),
 
       //refresh button
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 10, right: 10),
         child: FloatingActionButton(
+          backgroundColor: Colors.blueAccent,
             onPressed: () {
               ipData.value = IPDetails.fromJson({});
               APIs.getIPDetails(ipData: ipData);
             },
-            child: Icon(CupertinoIcons.refresh)),
+            child: Icon(CupertinoIcons.refresh,size: 30,)),
       ),
 
       body: Obx(
